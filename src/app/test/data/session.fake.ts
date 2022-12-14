@@ -1,5 +1,5 @@
 
-import { Session } from '../models/session.interface';
+import { Session } from '../../models/session.interface';
 
 export const session: Session = {
     _id: '1',
@@ -9,9 +9,9 @@ export const session: Session = {
     hourSession: '17:45:02',
 };
 
-export const sessionList: Session[] = [
+export const sessions: Session[] = [
     {
-        _id: '2',
+        _id: '1',
         idUser: '3',
         sessionDate: '14-12-2022',
         ipSession: '192.162.128.23',

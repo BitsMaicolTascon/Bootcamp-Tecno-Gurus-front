@@ -17,7 +17,7 @@ export const user: User = {
 };
 
 
-export const useList: User[] = [
+export const users: User[] = [
     {
         _id: '1',
         name: 'Maicol',
