@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
+import { User } from '../../models/user.interface';
+
+
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -21,5 +24,10 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('test method login in component', () => {
+
+
   });
 });
