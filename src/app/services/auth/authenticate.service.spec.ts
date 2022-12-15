@@ -12,13 +12,20 @@ import { session } from 'src/app/test/data/session.fake';
 
 
 
-fdescribe('AuthenticateService', () => {
+xdescribe('AuthenticateService', () => {
   let service: AuthenticateService;
   let httpMock: HttpTestingController;
   let storage: any = {};
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
+      providers: [
+        AuthenticateService
+      ]
+    });
     service = TestBed.inject(AuthenticateService);
   });
 
@@ -46,21 +53,43 @@ fdescribe('AuthenticateService', () => {
 
   it('login method return a user', () => {
     service.login(user.email, user.password).subscribe((resp: User) => {
+      expect(typeof user.email).toBe('string');
+      expect(typeof user.password).toBe('string');
       expect(resp).toEqual(user);
     })
-    const req = httpMock.expectOne(environment.API_REST_URL + '/login');
-    expect(req.request.method).toBe('GET');
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/login/');
+    expect(req.request.method).toBe('POST');
     req.flush(user);
   });
 
   it('session method return a session object', () => {
-    service.session(session).subscribe((resp: Session) => {
+    service.saveSession(session).subscribe((resp: Session) => {
+      expect(typeof session).toBe('object');
       expect(resp).toEqual(session);
     })
-    const req = httpMock.expectOne(environment.API_REST_URL + '/session');
-    expect(req.request.method).toBe('GET');
-    req.flush(user);
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/session/');
+    expect(req.request.method).toBe('POST');
+    req.flush(session);
   });
+
+  it('set user in localStorage', () => {
+    service.setUserInStorage(user);
+    expect(typeof user).toEqual('User');
+  });
+
+  it('set token authentication  in localStorage', () => {
+    const token = "xlmknj"
+    service.setTokenAuth(token);
+    expect(typeof token).toEqual('string');
+  });
+
+  it('get Token authentication in localStorage', () => {
+    let getTokenUser = () => service.getTokenUser();
+    expect(typeof getTokenUser).toEqual('string');
+  });
+
+
+
 
 
 });
