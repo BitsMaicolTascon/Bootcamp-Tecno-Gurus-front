@@ -12,7 +12,7 @@ import { session } from 'src/app/test/data/session.fake';
 
 
 
-xdescribe('AuthenticateService', () => {
+describe('AuthenticateService', () => {
   let service: AuthenticateService;
   let httpMock: HttpTestingController;
   let storage: any = {};
@@ -74,7 +74,7 @@ xdescribe('AuthenticateService', () => {
 
   it('set user in localStorage', () => {
     service.setUserInStorage(user);
-    expect(typeof user).toEqual('User');
+    expect(typeof user).toEqual('object');
   });
 
   it('set token authentication  in localStorage', () => {
@@ -84,7 +84,7 @@ xdescribe('AuthenticateService', () => {
   });
 
   it('get Token authentication in localStorage', () => {
-    let getTokenUser = () => service.getTokenUser();
+    let getTokenUser = service.getTokenUser();
     expect(typeof getTokenUser).toEqual('string');
   });
 
