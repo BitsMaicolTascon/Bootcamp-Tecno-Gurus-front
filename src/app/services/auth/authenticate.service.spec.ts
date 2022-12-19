@@ -88,8 +88,4 @@ xdescribe('AuthenticateService', () => {
     expect(typeof getTokenUser).toEqual('string');
   });
 
-
-
-
-
 });
