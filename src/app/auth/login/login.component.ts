@@ -12,4 +12,25 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  public login(): void {
+
+  }
+
+  private getAddressIp(): string {
+    return '';
+  }
+
+  private saveSession(): void {
+
+  }
+
+  private setUserInStorage(): void {
+
+  }
+
+  private setTokenInStorage(): void {
+
+  }
+
 }
