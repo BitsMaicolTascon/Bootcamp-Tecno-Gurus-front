@@ -6,6 +6,7 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { RecoverComponent } from './recover/recover.component';
+import { AuthenticateService } from '../services/auth/authenticate.service';
 
 
 @NgModule({
@@ -17,7 +18,10 @@ import { RecoverComponent } from './recover/recover.component';
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+  ],
+  providers: [
+    AuthenticateService
   ]
 })
 export class AuthModule { }

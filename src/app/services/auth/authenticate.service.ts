@@ -35,8 +35,14 @@ export class AuthenticateService {
     return String(localStorage.getItem('accessToken'));
   }
 
+  getAddressIp() {
+    return this.http.get(`${environment.API_GET_IP}`);
+  }
+
   saveSession(session: Session): Observable<Session> {
     return this.http.post<Session>(`${environment.API_REST_URL}/users/session/`, { session });
   }
+
+
 
 }
