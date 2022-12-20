@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import { LoginComponent } from './login.component';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
 import { user } from 'src/app/test/data/user.fake';
-import { session } from '../../test/data/session.fake';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -18,7 +18,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
       providers: [AuthenticateService],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
