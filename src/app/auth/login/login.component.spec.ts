@@ -50,7 +50,7 @@ describe('LoginComponent', () => {
   it('test a form group', () => {
     const formElement = fixture.debugElement.nativeElement.querySelector('#loginForm');
     const inputElements = formElement.querySelectorAll('input');
-    expect(inputElements.length).toEqual(2);
+    expect(inputElements.length).toEqual(3);
   });
 
   it('check initial form values', () => {
