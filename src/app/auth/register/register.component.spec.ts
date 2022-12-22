@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { RegisterService } from 'src/app/services/register/register.service';
 import { RegisterComponent } from './register.component';
 
-describe('RegisterComponent', () => {
+fdescribe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let service: RegisterService;
@@ -57,5 +57,16 @@ describe('RegisterComponent', () => {
     component.register();
     expect(spyLogin).toHaveBeenCalled();
   });
+
+
+  it('test method login in component when the service return error ', <any>fakeAsync((): void => {
+    const spyLogin = spyOn(service,'register').and.returnValue(throwError(() => new Error('Error')));
+    component.register();
+    setTimeout(() => {
+      component.errorAlert = false;
+      expect(component.errorAlert).toBe(false);
+    }, 4000);
+    tick(4000);
+  }));
 
 });
