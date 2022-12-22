@@ -12,8 +12,10 @@ export class RegisterService {
 
   constructor(public http: HttpClient) { }
 
-  register() {
-
+  register(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.API_REST_URL}/users/register/`, {
+      user
+    });
   }
 
 
