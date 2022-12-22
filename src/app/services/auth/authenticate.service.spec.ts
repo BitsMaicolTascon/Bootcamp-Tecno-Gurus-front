@@ -26,7 +26,6 @@ describe('AuthenticateService', () => {
         AuthenticateService
       ]
     });
-    service = TestBed.inject(AuthenticateService);
   });
 
   beforeEach(() => {
