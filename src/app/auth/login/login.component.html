@@ -7,6 +7,11 @@
         <h5 class="card-title">Money Service</h5>
       </div>
       <div class="card-form-auth">
+        <div class="alert alert-danger" *ngIf="errorAlert" role="alert">
+          <p *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
+          <p *ngIf="userIncorrect">Usuario o contraseña incorrectos</p>
+          <p *ngIf="userInactive">Usuario inactivo comuniquese con las entidad</p>
+        </div>
         <form id="loginForm" class="row" [formGroup]="form" (ngSubmit)="login()">
           <div class="mb-3 col-12">
             <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
@@ -32,7 +37,7 @@
             </label>
           </div>
           <div class="d-grid gap-2">
-            <button type="button" class="btn btn-secondary .btn-lg" [disabled]="(form.invalid)"
+            <button type="submit" class="btn btn-secondary .btn-lg" [disabled]="(form.invalid)"
             [ngClass]="{ 'btn-dark': !form.invalid}">Ingresar</button>
           </div>
           <div class="mb-3 col-12 card-recover-pass">

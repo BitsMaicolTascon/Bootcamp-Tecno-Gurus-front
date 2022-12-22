@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 import * as moment from 'moment';
 
 import { Session } from 'src/app/models/session.interface';
@@ -17,6 +18,9 @@ import { AuthenticateService } from 'src/app/services/auth/authenticate.service'
 export class LoginComponent implements OnInit {
   private ipAddress: string = '';
   public form!: FormGroup;
+  public errorAlert: boolean = false;
+  public userInactive: boolean = false;
+  public userIncorrect: boolean = false;
 
   constructor(
     private authService: AuthenticateService,
@@ -26,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rememberMe: [false,[]]
+      rememberMe: [false, []]
     });
 
   }
@@ -36,25 +40,37 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-    this.authService.login(this.form.value.email, this.form.value.password).subscribe((data) => {
-      try {
-        if (data.active === true && data.authToken) {
-          let session = {
-            idUser: data._id,
-            sessionDate: moment().format('YYYY-MM-DD'),
-            ipSession: this.ipAddress,
-            hourSession: moment().format('HH:mm:ss'),
-          } as Session;
-          this.saveSession(session);
-          this.setUserInStorage(data);
-          this.setTokenInStorage(data.authToken);
+      this.authService.login(this.form.value.email, this.form.value.password).subscribe({
+        next: (user) => {
+          if (user.active === true && user.authToken) {
+            let session = {
+              idUser: user._id,
+              sessionDate: moment().format('YYYY-MM-DD'),
+              ipSession: this.ipAddress,
+              hourSession: moment().format('HH:mm:ss'),
+            } as Session;
+            this.saveSession(session);
+            this.setUserInStorage(user);
+            this.setTokenInStorage(user.authToken);
+          } else if(user.active === false) {
+            this.userInactive = true;
+            setTimeout(() => {
+              this.userInactive = false;
+            }, 4000);
+          } else {
+            this.userIncorrect = true;
+            setTimeout(() => {
+              this.userIncorrect = false;
+            }, 4000);
+          }
+        },
+        error: (err) => {
+          this.errorAlert = true;
+          setTimeout(() => {
+            this.errorAlert = false;
+          }, 4000);
         }
-
-      } catch (err) {
-
-      }
-
-    });
+      });
   }
 
   private getAddressIp(): string {
