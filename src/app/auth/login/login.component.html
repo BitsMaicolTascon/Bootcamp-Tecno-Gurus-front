@@ -1,1 +1,67 @@
-<p>login works!</p>
+<div class="card-auth">
+
+  <div class="card container" style="width: 18rem;">
+    <div class="card-body ">
+      <div class="info-logo-auth">
+        <img src="assets/images/Frame.png" class="img-card-auth" alt="logo-login">
+        <h5 class="card-title">Money Service</h5>
+      </div>
+      <div class="card-form-auth">
+        <div class="alert alert-danger" *ngIf="errorAlert" role="alert">
+          <p *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
+          <p *ngIf="userIncorrect">Usuario o contraseña incorrectos</p>
+          <p *ngIf="userInactive">Usuario inactivo comuniquese con las entidad</p>
+        </div>
+        <form id="loginForm" class="row" [formGroup]="form" (ngSubmit)="login()">
+          <div class="mb-3 col-12">
+            <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email-login" formControlName="email" placeholder="hola@ejemplo.com"
+            [ngClass]="{ 'is-invalid' : form.get('email')?.errors && form.get('email')?.dirty}"
+            (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+            <div id="email-feedback" class="invalid-feedback">
+              El campo es requerido.
+            </div>
+          </div>
+          <div class="mb-3 col-12">
+            <label for="exampleFormControlTextarea1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password-login" formControlName="password"  placeholder="Contraseña de 6 digitos"
+            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="6">
+            <p id="password-feedback" class="invalid-feedback">
+              El campo es requerido.
+            </p>
+          </div>
+          <div class="mb-3 col-12 form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="rememberMe">
+            <label class="form-check-label" for="flexCheckDefault">
+              Recordar mis datos
+            </label>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-secondary .btn-lg" [disabled]="(form.invalid)"
+            [ngClass]="{ 'btn-dark': !form.invalid}">Ingresar</button>
+          </div>
+          <div class="mb-3 col-12 card-recover-pass">
+            <a href="" class="recover-pass">Olvide mi contraseña</a>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="row buttons-social-networks">
+          <p class="text-social-network">Ingrese con</p>
+          <div class="col-6">
+
+            <button type="button" class="btn btn-light btn-google" >
+              <img src="assets/images/google.png" alt="logo-facebook"> Google</button>
+          </div>
+          <div class="col-6">
+
+            <button type="button" class="btn btn-light btn-facebook" >
+              <img src="assets/images/facebook.png" alt="logo-facebook"> Facebook</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
