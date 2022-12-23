@@ -36,9 +36,22 @@
           text-decoration: none;
         }
       }
+      .text-password{
+        padding: 5px 0px 0px 0px;
+        margin: 0px;
+        p {
+          color: rgb(142, 142, 142);
+          margin: 0px !important;
+          font-size: 12px;
+        }
+      }
+
       .form-check {
         padding-left: 35px;
+        font-size: 14px;
+        color: rgb(142, 142, 142);
       }
+
     }
     .card-title {
       padding-top: 12px;
