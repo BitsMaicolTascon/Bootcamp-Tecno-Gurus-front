@@ -12,6 +12,14 @@
           <p *ngIf="registerFailed">No se pudo registrar el usuario</p>
         </div>
         <form id="registerForm" class="row" [formGroup]="form" (ngSubmit)="register()">
+          <div class="mb-3 col-12 d-grid">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button check-role-label">
+              <input type="radio" class="btn-check" formControlName="role" value="lender" name="role" id="btnradio1" autocomplete="off" >
+              <label class="btn btn-outline-dark check-role-label" for="btnradio1">Quiero invertir</label>
+              <input type="radio" class="btn-check" formControlName="role" value="borrower" name="role" id="btnradio2" autocomplete="off">
+              <label class="btn btn-outline-dark check-role-label" for="btnradio2">Quiero un préstamo</label>
+            </div>
+          </div>
           <div class="mb-3 col-12">
             <label for="email-register" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email-register" formControlName="email" placeholder="hola@ejemplo.com"

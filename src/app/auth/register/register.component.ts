@@ -31,6 +31,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // TODO document why this method 'ngOnInit' is empty
+
   }
 
   register(): void {
@@ -43,15 +45,15 @@ export class RegisterComponent implements OnInit {
     this.registerService.register(user).subscribe({
       next: (user) => {
         if (user.active) {
-          this.errorAlert = true;
+          this.registerDone = true;
           setTimeout(() => {
-            this.errorAlert = false;
+            this.registerDone = false;
           }, 4000);
 
         } else {
-          this.errorAlert = true;
+          this.registerFailed = true;
           setTimeout(() => {
-            this.errorAlert = false;
+            this.registerFailed = false;
           }, 4000);
         }
       },
