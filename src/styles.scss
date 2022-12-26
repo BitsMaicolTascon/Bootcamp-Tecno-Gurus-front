@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+.card-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 5em;
+  z-index: 1;
+  .card {
+    box-shadow: 10px 20px 5px 1px rgba(0, 0, 0, 0) !important;
+    @media (min-width: 512px) {
+      min-width: 390px;
+    }
+  }
+  .card-body {
+    .info-logo-auth {
+      display: flex;
+      padding-top: 5%;
+      padding-bottom: 15%;
+      padding-left: 15%;
+      padding-right: 15%;
+      align-items: center;
+    }
+    .card-form-auth {
+      .card-recover-pass {
+        text-align: center;
+        padding: 5px;
+        margin: 0px !important;
+        .recover-pass {
+          font-weight: 600;
+          color: rgb(33, 33, 33);
+          text-decoration: none;
+        }
+      }
+      .form-check {
+        padding-left: 35px;
+      }
+    }
+    .card-title {
+      padding-top: 12px;
+      padding-left: 15px;
+    }
+  }
+  .card-footer {
+    background-color: #fff;
+    .text-social-network {
+      text-align: center;
+    }
+    .buttons-social-networks {
+      padding: 0px 15px;
+      .btn-google,
+      .btn-facebook {
+        border: 1px solid rgb(208, 208, 208);
+      }
+    }
+  }
+}
