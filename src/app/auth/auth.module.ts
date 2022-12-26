@@ -23,7 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RecoverComponent,
   ],
   imports: [
-  CommonModule,
+    CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     TemplatesModule,

@@ -1,1 +1,67 @@
-<p>register works!</p>
+<div class="card-auth">
+  <div class="card container" style="width: 18rem;">
+    <div class="card-body ">
+      <div class="info-logo-auth">
+        <img src="assets/images/Frame.png" class="img-card-auth" alt="logo-login">
+        <h5 class="card-title">Money Service</h5>
+      </div>
+      <div class="card-form-auth">
+        <div class="alert alert-danger" *ngIf="errorAlert" role="alert">
+          <p *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
+          <p *ngIf="registerDone">Usuario registrado correctamente</p>
+          <p *ngIf="registerFailed">No se pudo registrar el usuario</p>
+        </div>
+        <form id="registerForm" class="row" [formGroup]="form" (ngSubmit)="register()">
+          <div class="mb-3 col-12 d-grid">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button check-role-label">
+              <input type="radio" class="btn-check" formControlName="role" value="lender" name="role" id="btnradio1" autocomplete="off" >
+              <label class="btn btn-outline-dark check-role-label" for="btnradio1">Quiero invertir</label>
+              <input type="radio" class="btn-check" formControlName="role" value="borrower" name="role" id="btnradio2" autocomplete="off">
+              <label class="btn btn-outline-dark check-role-label" for="btnradio2">Quiero un préstamo</label>
+            </div>
+          </div>
+          <div class="mb-3 col-12">
+            <label for="email-register" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email-register" formControlName="email" placeholder="hola@ejemplo.com"
+            [ngClass]="{ 'is-invalid' : form.get('email')?.errors && form.get('email')?.dirty}"
+            (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+            <div id="email-feedback" class="invalid-feedback">
+              El campo es requerido @.
+            </div>
+          </div>
+          <div class="mb-3 col-12">
+            <label for="password-register" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password-register" formControlName="password"  placeholder="Contraseña de 6 digitos"
+            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="6">
+            <div class="text-password">
+              <p>Debe contener al menos 6 dígitos</p>
+              <p >Debe contener al menos un caracter especial</p>
+            </div>
+            <p id="password-feedback" class="invalid-feedback">
+              El campo es requerido.
+            </p>
+          </div>
+          <div class="mb-3 col-12">
+            <label for="phone-register" class="form-label">Número de teléfono</label>
+            <input type="text" class="form-control" id="phone-register" formControlName="phoneNumber"  placeholder="Ingresa tu número de teléfono"
+            [ngClass]="{ 'is-invalid' : form.get('phoneNumber')?.errors && form.get('phoneNumber')?.dirty}" maxlength="10">
+            <p id="password-feedback" class="invalid-feedback">
+              El campo es requerido, solo numeros.
+            </p>
+          </div>
+          <div class="mb-3 col-12 form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="termConditions">
+            <label class="form-check-label" for="flexCheckDefault">
+              Acepte los terminos y condiciones y la politica de privacidad
+            </label>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-secondary .btn-lg" [disabled]="(form.invalid)"
+            [ngClass]="{ 'btn-dark': !form.invalid}">Regístrarme</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

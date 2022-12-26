@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
@@ -114,4 +114,7 @@ describe('LoginComponent', () => {
     }, 4000);
     tick(4000);
   }));
+
+
+
 });
