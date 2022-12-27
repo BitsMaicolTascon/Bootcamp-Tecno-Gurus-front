@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 import * as moment from 'moment';
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthenticateService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
 
     this.form = this.formBuilder.group({
@@ -52,6 +54,9 @@ export class LoginComponent implements OnInit {
             this.saveSession(session);
             this.setUserInStorage(user);
             this.setTokenInStorage(user.authToken);
+            setTimeout(() => {
+              this.router.navigateByUrl('/pages/home');
+            }, 200);
           } else if(user.active === false) {
             this.userInactive = true;
             setTimeout(() => {
