@@ -1,7 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { NavbarComponent } from './navbar.component';
 import { Router } from '@angular/router';
+import { of, Observable } from 'rxjs';
+
 
 
 fdescribe('NavbarComponent', () => {
@@ -32,12 +34,16 @@ fdescribe('NavbarComponent', () => {
   });
 
   it('test in Router navigate of register URL', () => {
-    component.register()
+    router.navigateByUrl.and.returnValue(Promise.resolve(true));
+    component.redirect('/auth/register');
     expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/register');
   });
 
   it('test in Router navigate of login URL', () => {
-    component.login()
+    router.navigateByUrl.and.returnValue(Promise.resolve(true));
+    component.redirect('/auth/login');
     expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/login');
   });
 });
+
+
