@@ -1,31 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <img class="navbar-brand" alt="logo" src="assets/images/logo-header.png"/>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Solicita un prestamo
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Quiero invertir</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Cómo funciona</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Simulador</a>
-        </li>
-      </ul>
-      <button class="btn btn-light my-2 my-sm-0" type="submit">Regístrate</button>
-    </div>
-  </div>
-</nav> -->
-
 <header class="p-3 text-bg-dark header-auth">
   <div class="container-fluid">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -38,8 +10,8 @@
         <li><a href="#" class="nav-link px-4 text-white">Simulador</a></li>
       </ul>
 
-      <div class="text-end">
-        <button type="button"  routerLinkActive="router-link-active"  class="btn btn-light me-2">Regístrate</button>
+      <div class="text-end" *ngFor="let buttonItem of buttonsItems">
+        <button type="button" *ngIf="buttonItem.condition"  class="btn {{buttonItem.class}} me-2" (click)="redirect(buttonItem.path)">{{buttonItem.title}}</button>
       </div>
     </div>
   </div>

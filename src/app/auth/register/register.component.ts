@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 import * as moment from 'moment';
 
@@ -20,6 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private registerService: RegisterService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)]],
@@ -48,6 +51,7 @@ export class RegisterComponent implements OnInit {
           this.registerDone = true;
           setTimeout(() => {
             this.registerDone = false;
+            this.router.navigateByUrl('/pages/perfil');
           }, 4000);
 
         } else {
