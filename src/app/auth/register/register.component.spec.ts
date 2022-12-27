@@ -64,7 +64,7 @@ describe('RegisterComponent', () => {
     const spyregister = spyOn(service, 'register').and.callFake((user) => of(user));
     component.register();
     expect(spyregister).toHaveBeenCalled();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/register');
+
   });
 
   it('test method register in component when user is inactive', <any>fakeAsync((): void => {
@@ -77,6 +77,7 @@ describe('RegisterComponent', () => {
     setTimeout(() => {
       component.registerFailed = false;
       expect(component.registerFailed).toBe(false);
+
     }, 4000);
     tick(4000);
   }));
@@ -91,6 +92,7 @@ describe('RegisterComponent', () => {
     setTimeout(() => {
       component.registerDone = false;
       expect(component.registerDone).toBe(false);
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/perfil');
     }, 4000);
     tick(4000);
   }));
