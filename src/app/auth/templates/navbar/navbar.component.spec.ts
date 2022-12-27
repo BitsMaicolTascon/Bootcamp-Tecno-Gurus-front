@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 
 import { NavbarComponent } from './navbar.component';
 import { Router } from '@angular/router';
-import { of, Observable } from 'rxjs';
 
 
 
-fdescribe('NavbarComponent', () => {
+
+describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let router: jasmine.SpyObj<Router>;

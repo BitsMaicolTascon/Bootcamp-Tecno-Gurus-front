@@ -18,13 +18,10 @@ export class NavbarComponent implements OnInit {
   public buttonsItems: MenuItem[] = [];
   public pathLocation: string = '';
 
-  constructor(private router: Router, private location: Location) {
-
-  }
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
     this.loadData()
-
   }
 
   private loadData(): void {
@@ -34,13 +31,13 @@ export class NavbarComponent implements OnInit {
         path: '/auth/login',
         title: 'Iniciar sesión',
         class: 'btn-dark',
-        condition: this.pathLocation === '/auth/register'
+        condition: this.pathLocation === '/auth/register' || this.pathLocation !== '/auth/register' && this.pathLocation !== '/auth/login'
       },
       {
         path: '/auth/register',
         title: 'Regístrarme',
         class: 'btn-light',
-        condition: this.pathLocation === '/auth/login'
+        condition: this.pathLocation === '/auth/login' || this.pathLocation !== '/auth/register' && this.pathLocation !== '/auth/login'
       }
     ]
   }
