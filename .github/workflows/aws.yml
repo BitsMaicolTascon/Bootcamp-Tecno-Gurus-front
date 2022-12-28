@@ -53,16 +53,15 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: npm run test:hidden
+
+    - name: Checking Unit Tests and code Code Coverage (should be up to 80%)
+      run: test $(npm run test:hidden | grep -E "Statements.*[0-9]%" -o | grep -E "[0-9]*" -o) -gt 80
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
