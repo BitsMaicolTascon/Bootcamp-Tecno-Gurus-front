@@ -116,7 +116,7 @@ describe('LoginComponent', () => {
     const spyLogin = spyOn(service,'login').and.returnValue(throwError(() => new Error('Error')));
     component.login();
     setTimeout(() => {
-      component.errorAlert = false;
+      component.errorAlert = true;
       expect(component.errorAlert).toBe(false);
     }, 4000);
     tick(4000);
