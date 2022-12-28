@@ -2,13 +2,14 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { LoginComponent } from './login.component';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
 import { user } from 'src/app/test/data/user.fake';
 import { ReactiveFormsModule } from '@angular/forms';
 import { User } from 'src/app/models/user.interface';
+import { Router } from '@angular/router';
 
 
 
@@ -16,12 +17,14 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let service: AuthenticateService;
+  let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
+    const spyRouter = jasmine.createSpyObj('Router', ['navigateByUrl']);
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
-      providers: [AuthenticateService],
+      providers: [AuthenticateService, { provide: Router, useValue: spyRouter }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
       .compileComponents();
@@ -32,7 +35,7 @@ describe('LoginComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     service = fixture.debugElement.injector.get(AuthenticateService);
-
+    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
   });
 
   it('should create', () => {
@@ -75,6 +78,10 @@ describe('LoginComponent', () => {
     expect(spySaveSessionComponent).toHaveBeenCalled();
     expect(spySetUserInStorage).toHaveBeenCalled();
     expect(spySetTokenInStorage).toHaveBeenCalled();
+    setTimeout(() => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/home');
+    }, 200);
+    tick(200);
   }));
 
   it('test method login in component when user is inactive', <any>fakeAsync((): void => {
@@ -114,4 +121,7 @@ describe('LoginComponent', () => {
     }, 4000);
     tick(4000);
   }));
+
+
+
 });
