@@ -1,5 +1,9 @@
-
-<div class="container-fluid">
-  <router-outlet></router-outlet>
+<div class="d-flex" id="wrapper">
+  <app-sidebar [show]="show" (showSidebar)="showSidebar( $event )"></app-sidebar>
+  <div  id="page-content-wrapper">
+    <app-header (showSidebar)="showSidebar( $event )"></app-header>
+      <div class="container-fluid " id="router-pages">
+        <router-outlet></router-outlet>
+      </div>
+  </div>
 </div>
-
