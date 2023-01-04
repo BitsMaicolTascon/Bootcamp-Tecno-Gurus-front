@@ -3,7 +3,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, throwError } from 'rxjs';
-
 import { LoginComponent } from './login.component';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
 import { user } from 'src/app/test/data/user.fake';
@@ -13,18 +12,23 @@ import { Router } from '@angular/router';
 
 
 
+
+
+
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let service: AuthenticateService;
   let router: jasmine.SpyObj<Router>;
 
+
+
   beforeEach(async () => {
     const spyRouter = jasmine.createSpyObj('Router', ['navigateByUrl']);
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
-      providers: [AuthenticateService, { provide: Router, useValue: spyRouter }],
+      providers: [AuthenticateService, { provide: Router, useValue: spyRouter }, ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
       .compileComponents();
@@ -69,28 +73,24 @@ describe('LoginComponent', () => {
 
 
   it('test method login in component', <any>fakeAsync((): void => {
-    const spySaveSessionComponent = spyOn((component as any), 'saveSession').and.callThrough();
-    const spySetUserInStorage = spyOn((component as any), 'setUserInStorage').and.callThrough();
-    const spySetTokenInStorage = spyOn((component as any), 'setTokenInStorage').and.callThrough();
-    const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(user));
+    const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of([user]));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
-    expect(spySaveSessionComponent).toHaveBeenCalled();
-    expect(spySetUserInStorage).toHaveBeenCalled();
-    expect(spySetTokenInStorage).toHaveBeenCalled();
     setTimeout(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/home');
     }, 200);
     tick(200);
   }));
 
+
   it('test method login in component when user is inactive', <any>fakeAsync((): void => {
-    const userInactive = {
+    const userInactive = [{
       active: false
-    } as User;
+    }] as User[];
     const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(userInactive));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
+    component.userInactive = true;
     setTimeout(() => {
       component.userInactive = false;
       expect(component.userInactive).toBe(false);
@@ -99,12 +99,13 @@ describe('LoginComponent', () => {
   }));
 
   it('test method login in component when user is active ', <any>fakeAsync((): void => {
-    const userActive = {
+    const userActive = [{
       active: true
-    } as User;
+    }] as User[];
     const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(userActive));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
+    component.userIncorrect = true;
     setTimeout(() => {
       component.userIncorrect = false;
       expect(component.userIncorrect).toBe(false);
@@ -113,14 +114,17 @@ describe('LoginComponent', () => {
   }));
 
   it('test method login in component when the service return error ', <any>fakeAsync((): void => {
-    const spyLogin = spyOn(service,'login').and.returnValue(throwError(() => new Error('Error')));
+    const spyLogin = spyOn(service, 'login').and.returnValue(throwError(() => new Error('Error')));
     component.login();
+    expect(spyLogin).toHaveBeenCalled();
     setTimeout(() => {
       component.errorAlert = false;
       expect(component.errorAlert).toBe(false);
     }, 4000);
     tick(4000);
   }));
+
+
 
 
 

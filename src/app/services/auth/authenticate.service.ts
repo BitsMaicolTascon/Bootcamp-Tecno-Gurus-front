@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { environment } from 'src/environments/environment';
-
 import { Session } from '../../models/session.interface';
 import { User } from '../../models/user.interface';
 
@@ -13,18 +11,21 @@ import { User } from '../../models/user.interface';
   providedIn: 'root'
 })
 export class AuthenticateService {
+  private headers: any;
 
-  constructor(public http: HttpClient) { }
-  login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${environment.API_REST_URL}/users/login/`, {
+  constructor(public http: HttpClient) {
+    this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+  }
+  login(email: string, password: string): Observable<User[]> {
+    return this.http.post<User[]>(`${environment.API_REST_URL}/users/auth/login`, {
       email,
       password,
-    });
+    }, { headers: this.headers });
   }
 
   setUserInStorage(user: User): void {
     const userInfo = JSON.stringify(user);
-    localStorage.setItem('currentUsuario', userInfo);
+    localStorage.setItem('currentUser', userInfo);
   }
 
   setTokenAuth(token: string): void {

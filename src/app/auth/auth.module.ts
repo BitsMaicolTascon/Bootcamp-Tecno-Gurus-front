@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -27,10 +28,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AuthRoutingModule,
     ReactiveFormsModule,
     TemplatesModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
-    AuthenticateService
+    AuthenticateService,
   ]
 })
 export class AuthModule { }

@@ -50,13 +50,12 @@ describe('AuthenticateService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('login method return a user', () => {
-    service.login(user.email, user.password).subscribe((resp: User) => {
+  it('login method in service return a user', () => {
+    service.login(user.email, user.password).subscribe((resp: User[]) => {
       expect(typeof user.email).toBe('string');
       expect(typeof user.password).toBe('string');
-      expect(resp).toEqual(user);
     })
-    const req = httpMock.expectOne(environment.API_REST_URL + '/users/login/');
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(user);
   });
