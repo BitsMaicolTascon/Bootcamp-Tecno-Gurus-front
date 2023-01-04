@@ -14,7 +14,7 @@ describe('AuthGuard', () => {
     TestBed.configureTestingModule({
       providers: [
         AuthGuard,
-        { provide: AuthenticateService, useValue: { getTokenUser: () => 'fake-token' } },
+        { provide: AuthenticateService, useValue: { getUserInStorage: () => true } },
         { provide: Router, useValue: { navigate: () => {} } }
       ]
     });
@@ -27,15 +27,17 @@ describe('AuthGuard', () => {
   it('should return true if the user is authenticated', () => {
     const activatedRoute = fakeRouterStateSnapshot({});
     const routerState = fakeActivatedRouteSnapshot({});
+    spyOn(authService, 'getUserInStorage').and.returnValue(true);
     expect(authGuard.canActivate(routerState, activatedRoute)).toBe(true);
   });
 
   it('should navigate to the login page if the user is not authenticated', () => {
     const activatedRoute = fakeRouterStateSnapshot({});
     const routerState = fakeActivatedRouteSnapshot({});
-    spyOn(authService, 'getTokenUser').and.returnValue("");
+    spyOn(authService, 'getUserInStorage').and.returnValue(false);
     spyOn(router, 'navigate');
     expect(authGuard.canActivate(routerState, activatedRoute)).toBe(false);
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(router.navigate).toHaveBeenCalledWith(['/auth/login']);
   });
+
 });

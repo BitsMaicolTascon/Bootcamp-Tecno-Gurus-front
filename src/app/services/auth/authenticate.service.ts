@@ -28,12 +28,21 @@ export class AuthenticateService {
     localStorage.setItem('currentUser', userInfo);
   }
 
+
   setTokenAuth(token: string): void {
     localStorage.setItem('accessToken', token);
   }
 
   getTokenUser(): string {
     return String(localStorage.getItem('accessToken'));
+  }
+
+  getUserInStorage(): any {
+    const userString = localStorage.getItem('currentUser');
+    if (userString) {
+      const user: User = JSON.parse(userString);
+      return user;
+    }
   }
 
   getAddressIp() {

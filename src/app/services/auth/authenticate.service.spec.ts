@@ -86,4 +86,9 @@ describe('AuthenticateService', () => {
     expect(typeof getTokenUser).toEqual('string');
   });
 
+  it('get User authentication in localStorage', () => {
+    let getUser = service.getUserInStorage();
+    expect(typeof getUser).toEqual('undefined');
+  });
+
 });
