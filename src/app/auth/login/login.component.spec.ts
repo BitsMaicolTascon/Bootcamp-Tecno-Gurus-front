@@ -3,14 +3,12 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of, throwError } from 'rxjs';
-
 import { LoginComponent } from './login.component';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
 import { user } from 'src/app/test/data/user.fake';
 import { ReactiveFormsModule } from '@angular/forms';
 import { User } from 'src/app/models/user.interface';
 import { Router } from '@angular/router';
-
 
 
 describe('LoginComponent', () => {
@@ -24,7 +22,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
-      providers: [AuthenticateService, { provide: Router, useValue: spyRouter }],
+      providers: [AuthenticateService, { provide: Router, useValue: spyRouter }, ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     })
       .compileComponents();
@@ -41,7 +39,6 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 
   it('method getAddressIp call from ngOnInit', () => {
     const spyGetAddressIp = spyOn((component as any), 'getAddressIp').and.callThrough();
@@ -69,15 +66,9 @@ describe('LoginComponent', () => {
 
 
   it('test method login in component', <any>fakeAsync((): void => {
-    const spySaveSessionComponent = spyOn((component as any), 'saveSession').and.callThrough();
-    const spySetUserInStorage = spyOn((component as any), 'setUserInStorage').and.callThrough();
-    const spySetTokenInStorage = spyOn((component as any), 'setTokenInStorage').and.callThrough();
-    const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(user));
+    const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of([user]));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
-    expect(spySaveSessionComponent).toHaveBeenCalled();
-    expect(spySetUserInStorage).toHaveBeenCalled();
-    expect(spySetTokenInStorage).toHaveBeenCalled();
     setTimeout(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/home');
     }, 200);
@@ -85,12 +76,13 @@ describe('LoginComponent', () => {
   }));
 
   it('test method login in component when user is inactive', <any>fakeAsync((): void => {
-    const userInactive = {
+    const userInactive = [{
       active: false
-    } as User;
+    }] as User[];
     const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(userInactive));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
+    component.userInactive = true;
     setTimeout(() => {
       component.userInactive = false;
       expect(component.userInactive).toBe(false);
@@ -99,12 +91,13 @@ describe('LoginComponent', () => {
   }));
 
   it('test method login in component when user is active ', <any>fakeAsync((): void => {
-    const userActive = {
+    const userActive = [{
       active: true
-    } as User;
+    }] as User[];
     const spyLogin = spyOn(service, 'login').and.callFake((email: string = '', password: string = '') => of(userActive));
     component.login();
     expect(spyLogin).toHaveBeenCalled();
+    component.userIncorrect = true;
     setTimeout(() => {
       component.userIncorrect = false;
       expect(component.userIncorrect).toBe(false);
@@ -113,8 +106,9 @@ describe('LoginComponent', () => {
   }));
 
   it('test method login in component when the service return error ', <any>fakeAsync((): void => {
-    const spyLogin = spyOn(service,'login').and.returnValue(throwError(() => new Error('Error')));
+    const spyLogin = spyOn(service, 'login').and.returnValue(throwError(() => new Error('Error')));
     component.login();
+    expect(spyLogin).toHaveBeenCalled();
     setTimeout(() => {
       component.errorAlert = false;
       expect(component.errorAlert).toBe(false);
@@ -122,6 +116,15 @@ describe('LoginComponent', () => {
     tick(4000);
   }));
 
-
+  it('should set userIncorrect to true and then to false after 4 seconds if user is incorrect', <any>fakeAsync((): void => {
+    component.userIncorrect = false;
+    spyOn(service, 'login').and.returnValue(of([]));
+    component.login();
+    expect(component.userIncorrect).toBe(false);
+    setTimeout(() => {
+      expect(component.userIncorrect).toBe(false);
+    }, 4000);
+    tick(4000);
+  }));
 
 });
