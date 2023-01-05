@@ -41,8 +41,6 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.authService.login(this.form.value.email, this.form.value.password).subscribe({
       next: (resp) => {
-        console.log(resp);
-
         const user = resp[0]?.user;
         if (resp[0]?.active) {
           const session = {

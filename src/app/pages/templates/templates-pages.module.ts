@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,11 +14,16 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    RouterModule
   ],
   exports: [
     SidebarComponent,
     HeaderComponent
+  ],
+  providers: [
+    AuthenticateService,
+    HttpClientModule
   ]
 })
 export class TemplatesPagesModule { }

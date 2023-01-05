@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PagesComponent } from './pages.component';
 import { TemplatesPagesModule } from './templates/templates-pages.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TemplatesPagesModule } from './templates/templates-pages.module';
     CommonModule,
     PagesRoutingModule,
     TemplatesPagesModule,
-    NgbModule
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [
 
