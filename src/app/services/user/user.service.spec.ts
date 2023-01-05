@@ -35,12 +35,12 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Register method return a user', () => {
+  it('Update Perfil method return a user', () => {
     service.updatePerfil(user).subscribe((resp: User) => {
       expect(typeof user).toBe('object');
       expect(resp).toEqual(user);
     })
-    const req = httpMock.expectOne(environment.API_REST_URL + '/users/update/');
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/identifications/');
     expect(req.request.method).toBe('PUT');
     req.flush(user);
   });

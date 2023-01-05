@@ -16,7 +16,6 @@ export class RegisterService {
   }
 
   register(user: User): Observable<User> {
-    console.log(user);
 
     return this.http.post<User>(`${environment.API_REST_URL}/users/register/`, {
       phoneNumber: user.phoneNumber,

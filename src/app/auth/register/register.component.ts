@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
     } as User
     this.registerService.register(user).subscribe({
       next: (resp) => {
-        console.log(resp.success);
         if (resp.success) {
           this.registerDone = true;
           setTimeout(() => {
