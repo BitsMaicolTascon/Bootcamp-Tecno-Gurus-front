@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
-import * as moment from 'moment';
-
 import { User } from 'src/app/models/user.interface';
 import { RegisterService } from 'src/app/services/register/register.service';
 
@@ -27,7 +24,7 @@ export class RegisterComponent implements OnInit {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email, Validators.pattern(/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      termConditions: [false, [Validators.required]],
+      termConditions: [false, [Validators.required, Validators.requiredTrue]],
       role: ['', [Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]]
     });
@@ -46,12 +43,13 @@ export class RegisterComponent implements OnInit {
       phoneNumber: this.form.value.phoneNumber
     } as User
     this.registerService.register(user).subscribe({
-      next: (user) => {
-        if (user.active) {
+      next: (resp) => {
+        console.log(resp.success);
+        if (resp.success) {
           this.registerDone = true;
           setTimeout(() => {
             this.registerDone = false;
-            this.router.navigateByUrl('/pages/perfil');
+            this.router.navigateByUrl('/auth/login');
           }, 4000);
 
         } else {

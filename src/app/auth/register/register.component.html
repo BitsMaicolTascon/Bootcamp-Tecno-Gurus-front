@@ -6,10 +6,10 @@
         <h5 class="card-title">Money Service</h5>
       </div>
       <div class="card-form-auth">
-        <div class="alert alert-danger" *ngIf="errorAlert" role="alert">
-          <p *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
-          <p *ngIf="registerDone">Usuario registrado correctamente</p>
-          <p *ngIf="registerFailed">No se pudo registrar el usuario</p>
+        <div *ngIf="errorAlert || registerFailed || registerDone" >
+          <p class="alert alert-danger" role="alert" *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
+          <p class="alert alert-danger" role="alert" *ngIf="registerFailed">El usuario ya se encuentra registrado</p>
+          <p class="alert alert-success" role="alert" *ngIf="registerDone">Usuario registrado con exito</p>
         </div>
         <form id="registerForm" class="row" [formGroup]="form" (ngSubmit)="register()">
           <div class="mb-3 col-12 d-grid">
@@ -31,8 +31,8 @@
           </div>
           <div class="mb-3 col-12">
             <label for="password-register" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password-register" formControlName="password"  placeholder="Contraseña de 6 digitos"
-            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="6">
+            <input type="password" class="form-control" id="password-register" formControlName="password"  placeholder="Contraseña de minimo 6 digitos"
+            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="16">
             <div class="text-password">
               <p>Debe contener al menos 6 dígitos</p>
               <p >Debe contener al menos un caracter especial</p>
