@@ -16,7 +16,10 @@ export const user: User = {
   employee: true,
   TokenType: "",
   user: "",
-  users: []
+  users: [],
+  body: {},
+  success: true,
+  status: null
 };
 
 
@@ -37,7 +40,10 @@ export const users: User[] = [
     employee: true,
     TokenType: "",
     user: "",
-    users: []
+    users: [],
+    body: {},
+    success: true,
+    status: null
   },
   {
     documentId: '2',
@@ -55,7 +61,10 @@ export const users: User[] = [
     employee: true,
     TokenType: "",
     user: "",
-    users: []
+    users: [],
+    body: {},
+    success: true,
+    status: null
   },
   {
     documentId: '3',
@@ -73,6 +82,9 @@ export const users: User[] = [
     employee: true,
     TokenType: "",
     user: "",
-    users: []
+    users: [],
+    body: {},
+    success: true,
+    status: null
   }
 ];
