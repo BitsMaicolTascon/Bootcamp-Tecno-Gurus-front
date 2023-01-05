@@ -11,17 +11,11 @@ import { User } from 'src/app/models/user.interface';
 import { Router } from '@angular/router';
 
 
-
-
-
-
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let service: AuthenticateService;
   let router: jasmine.SpyObj<Router>;
-
-
 
   beforeEach(async () => {
     const spyRouter = jasmine.createSpyObj('Router', ['navigateByUrl']);
@@ -45,7 +39,6 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 
   it('method getAddressIp call from ngOnInit', () => {
     const spyGetAddressIp = spyOn((component as any), 'getAddressIp').and.callThrough();
@@ -81,7 +74,6 @@ describe('LoginComponent', () => {
     }, 200);
     tick(200);
   }));
-
 
   it('test method login in component when user is inactive', <any>fakeAsync((): void => {
     const userInactive = [{
@@ -124,8 +116,15 @@ describe('LoginComponent', () => {
     tick(4000);
   }));
 
-
-
-
+  it('should set userIncorrect to true and then to false after 4 seconds if user is incorrect', <any>fakeAsync((): void => {
+    component.userIncorrect = false;
+    spyOn(service, 'login').and.returnValue(of([]));
+    component.login();
+    expect(component.userIncorrect).toBe(false);
+    setTimeout(() => {
+      expect(component.userIncorrect).toBe(false);
+    }, 4000);
+    tick(4000);
+  }));
 
 });

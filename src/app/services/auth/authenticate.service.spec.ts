@@ -91,4 +91,14 @@ describe('AuthenticateService', () => {
     expect(typeof getUser).toEqual('undefined');
   });
 
+  it('should return user from storage if it exists', () => {
+    const user = { id: 1, name: 'Maicol' };
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    expect(service.getUserInStorage()).toEqual(user);
+  });
+
+  it('should return null if user is not in storage', () => {
+    expect(service.getUserInStorage()).toBeUndefined();
+  });
+
 });

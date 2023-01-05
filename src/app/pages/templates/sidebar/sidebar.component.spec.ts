@@ -23,5 +23,17 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should emit showSidebar event with true value', () => {
+    spyOn(component.showSidebar, 'emit');
+    component.event(true);
+    expect(component.showSidebar.emit).toHaveBeenCalledWith(true);
+  });
+
+  it('should emit showSidebar event with false value', () => {
+    spyOn(component.showSidebar, 'emit');
+    component.event(false);
+    expect(component.showSidebar.emit).toHaveBeenCalledWith(false);
+  });
+
 
 });
