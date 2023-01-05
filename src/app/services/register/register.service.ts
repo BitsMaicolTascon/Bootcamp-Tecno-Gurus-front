@@ -9,13 +9,21 @@ import { User } from '../../models/user.interface';
   providedIn: 'root'
 })
 export class RegisterService {
+  private headers: any;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+    this.headers = new HttpHeaders().set('Content-Type', 'application/json');
+  }
 
   register(user: User): Observable<User> {
+    console.log(user);
+
     return this.http.post<User>(`${environment.API_REST_URL}/users/register/`, {
-      user
-    });
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      password: user.password,
+      role: user.role
+    }, {headers: this.headers});
   }
 
 

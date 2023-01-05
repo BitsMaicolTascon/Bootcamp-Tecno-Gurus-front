@@ -15,4 +15,27 @@ export interface User {
     TokenType: string;
     user: any;
     users: any[];
+    status: any;
+    body: any;
+    success: boolean;
 }
+
+interface RegisterResponse {
+  body: {
+    message: string;
+  },
+  status: {
+    error: string;
+  },
+  success: boolean;
+}
+
+
+
+/* {
+  "body": {},
+  "status": {
+      "error": "User already exists "
+  },
+  "success": false
+} */

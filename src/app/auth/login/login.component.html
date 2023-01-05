@@ -41,7 +41,7 @@
             [ngClass]="{ 'btn-dark': !form.invalid}">Ingresar</button>
           </div>
           <div class="mb-3 col-12 card-recover-pass">
-            <a href="" class="recover-pass">Olvide mi contraseña</a>
+            <a [routerLink]="['/auth/recover']" class="recover-pass">Olvide mi contraseña</a>
           </div>
         </form>
       </div>
