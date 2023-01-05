@@ -7,7 +7,7 @@
         <h5 class="card-title">Money Service</h5>
       </div>
       <div class="card-form-auth">
-        <div class="alert alert-danger" *ngIf="errorAlert" role="alert">
+        <div class="alert alert-danger" *ngIf="errorAlert || userIncorrect || userInactive" role="alert">
           <p *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
           <p *ngIf="userIncorrect">Usuario o contraseña incorrectos</p>
           <p *ngIf="userInactive">Usuario inactivo comuniquese con las entidad</p>
@@ -24,8 +24,8 @@
           </div>
           <div class="mb-3 col-12">
             <label for="exampleFormControlTextarea1" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password-login" formControlName="password"  placeholder="Contraseña de 6 digitos"
-            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="6">
+            <input type="password" class="form-control" id="password-login" formControlName="password"  placeholder="Contraseña de minimo 6 digitos"
+            [ngClass]="{ 'is-invalid' : form.get('password')?.errors && form.get('password')?.dirty}" maxlength="16">
             <p id="password-feedback" class="invalid-feedback">
               El campo es requerido.
             </p>

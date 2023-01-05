@@ -1,0 +1,30 @@
+<div class="header-navbar">
+  <nav class="navbar navbar-expand-lg navbar-light d-flex flex-row">
+
+
+    <div class="p-2">
+      <div class="collapse navbar-collapse text-end d-flex flex-row " id="navbar-options-user">
+        <div class="nav-img p-2">
+          <img src="assets/images/maicol.jpg" width="60px" height="60px" class="rounded-circle nav-img-perfil"
+            alt="Perfil image nav">
+        </div>
+        <div class="navbar-text-link p-2">
+          <a href="" class="item-nav-text">Maicol</a>
+          <a href="" class="nav-link-text">cerrar sesión</a>
+        </div>
+        <div class="navbar-notification p-2">
+          <i class="bi bi-bell-fill"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-button-toggle p-2">
+      <div type="button" class="navbar-button btn btn-light" (click)="showSide()">
+        <i  [ngClass]="{'bi bi-list': !status, 'bi-x-lg': status}"></i>
+      </div>
+    </div>
+
+
+
+  </nav>
+</div>

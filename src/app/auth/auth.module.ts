@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @NgModule({
   declarations: [
     AuthComponent,
@@ -23,14 +24,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RecoverComponent,
   ],
   imports: [
-  CommonModule,
+    CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
     TemplatesModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
-    AuthenticateService
+    AuthenticateService,
   ]
 })
 export class AuthModule { }

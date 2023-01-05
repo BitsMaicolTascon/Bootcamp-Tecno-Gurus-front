@@ -1,5 +1,5 @@
 export interface User {
-    _id: string;
+    documentId: string;
     name: string;
     lastName: string;
     phoneNumber: string;
@@ -10,6 +10,9 @@ export interface User {
     role: string;
     perfilImage: string;
     nickname: string;
-    authToken: string;
+    AccessTokem: any;
     employee: boolean;
+    TokenType: string;
+    user: any;
+    users: any[];
 }

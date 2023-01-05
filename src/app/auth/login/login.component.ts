@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
 import * as moment from 'moment';
 
 import { Session } from 'src/app/models/session.interface';
-import { User } from 'src/app/models/user.interface';
 import { AuthenticateService } from 'src/app/services/auth/authenticate.service';
-
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   private ipAddress: string = '';
@@ -22,6 +18,7 @@ export class LoginComponent implements OnInit {
   public errorAlert: boolean = false;
   public userInactive: boolean = false;
   public userIncorrect: boolean = false;
+
 
   constructor(
     private authService: AuthenticateService,
@@ -42,41 +39,45 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
-      this.authService.login(this.form.value.email, this.form.value.password).subscribe({
-        next: (user) => {
-          if (user.active === true && user.authToken) {
-            let session = {
-              idUser: user._id,
-              sessionDate: moment().format('YYYY-MM-DD'),
-              ipSession: this.ipAddress,
-              hourSession: moment().format('HH:mm:ss'),
-            } as Session;
-            this.saveSession(session);
-            this.setUserInStorage(user);
-            this.setTokenInStorage(user.authToken);
-            setTimeout(() => {
-              this.router.navigateByUrl('/pages/home');
-            }, 200);
-          } else if(user.active === false) {
-            this.userInactive = true;
-            setTimeout(() => {
-              this.userInactive = false;
-            }, 4000);
-          } else {
-            this.userIncorrect = true;
-            setTimeout(() => {
-              this.userIncorrect = false;
-            }, 4000);
-          }
-        },
-        error: (err) => {
-          this.errorAlert = true;
+    this.authService.login(this.form.value.email, this.form.value.password).subscribe({
+      next: (resp) => {
+        console.log(resp);
+
+        const user = resp[0]?.user;
+        if (resp[0]?.active) {
+          const session = {
+            idUser: resp[0].documentId,
+            sessionDate: moment().format('YYYY-MM-DD'),
+            ipSession: this.ipAddress,
+            hourSession: moment().format('HH:mm:ss'),
+          } as Session;
+          this.saveSession(session);
+          this.setUserInStorage(user);
+          this.setTokenInStorage(resp[0].AccessTokem);
           setTimeout(() => {
-            this.errorAlert = false;
+            this.router.navigateByUrl('/pages/home');
+          }, 200);
+        } else if(!resp[0]?.active) {
+          this.userInactive = true;
+          setTimeout(() => {
+            this.userInactive = false;
+          }, 4000);
+        } else {
+          this.userIncorrect = true;
+          setTimeout(() => {
+            this.userIncorrect = false;
           }, 4000);
         }
-      });
+      },
+      error: (err) => {
+        this.errorAlert = true;
+        setTimeout(() => {
+          this.errorAlert = false;
+        }, 4000);
+      }
+    });
   }
+
 
   private getAddressIp(): string {
     this.authService.getAddressIp().subscribe((address) => {
@@ -90,7 +91,7 @@ export class LoginComponent implements OnInit {
     this.authService.saveSession(session);
   }
 
-  private setUserInStorage(user: User): void {
+  private setUserInStorage(user: any): void {
     this.authService.setUserInStorage(user);
   }
 
