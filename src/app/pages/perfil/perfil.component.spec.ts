@@ -93,7 +93,7 @@ describe('PerfilComponent', () => {
     tick(4000);
   }));
 
-  it('test method register in component when success is true ', <any>fakeAsync((): void => {
+  it('test method updatePerfil in component when success is true ', <any>fakeAsync((): void => {
     const userActive = {
       success: true
     } as User;
