@@ -102,7 +102,7 @@ describe('AuthenticateService', () => {
   });
 
   it('recover password method in service return a user', () => {
-    service.recoverPassword(user.email).subscribe((resp: User[]) => {
+    service.recoverPassword(user.email).subscribe((resp: User) => {
       expect(typeof user.email).toBe('string');
     })
     const req = httpMock.expectOne(environment.API_REST_URL + '/users/auth/recover');
