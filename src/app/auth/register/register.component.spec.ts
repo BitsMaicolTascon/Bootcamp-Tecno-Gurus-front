@@ -67,9 +67,9 @@ describe('RegisterComponent', () => {
 
   });
 
-  it('test method register in component when user is inactive', <any>fakeAsync((): void => {
+  it('test method register in component when success is false', <any>fakeAsync((): void => {
     const userInactive = {
-      active: false
+      success: false
     } as User;
     const spyregister = spyOn(service, 'register').and.callFake((user) => of(userInactive));
     component.register();
@@ -82,17 +82,18 @@ describe('RegisterComponent', () => {
     tick(4000);
   }));
 
-  it('test method register in component when user is active ', <any>fakeAsync((): void => {
+  it('test method register in component when success is true ', <any>fakeAsync((): void => {
     const userActive = {
-      active: true
+      success: true
     } as User;
     const spyregister = spyOn(service, 'register').and.callFake((user) => of(userActive));
     component.register();
     expect(spyregister).toHaveBeenCalled();
+    component.registerDone = true;
     setTimeout(() => {
       component.registerDone = false;
       expect(component.registerDone).toBe(false);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/perfil');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/login');
     }, 4000);
     tick(4000);
   }));

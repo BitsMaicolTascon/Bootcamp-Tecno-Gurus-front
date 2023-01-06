@@ -50,13 +50,12 @@ describe('AuthenticateService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('login method return a user', () => {
-    service.login(user.email, user.password).subscribe((resp: User) => {
+  it('login method in service return a user', () => {
+    service.login(user.email, user.password).subscribe((resp: User[]) => {
       expect(typeof user.email).toBe('string');
       expect(typeof user.password).toBe('string');
-      expect(resp).toEqual(user);
     })
-    const req = httpMock.expectOne(environment.API_REST_URL + '/users/login/');
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/auth/login');
     expect(req.request.method).toBe('POST');
     req.flush(user);
   });
@@ -85,6 +84,30 @@ describe('AuthenticateService', () => {
   it('get Token authentication in localStorage', () => {
     let getTokenUser = service.getTokenUser();
     expect(typeof getTokenUser).toEqual('string');
+  });
+
+  it('get User authentication in localStorage', () => {
+    let getUser = service.getUserInStorage();
+    expect(typeof getUser).toEqual('undefined');
+  });
+
+  it('should return user from storage if it exists', () => {
+    const user = { id: 1, name: 'Maicol' };
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    expect(service.getUserInStorage()).toEqual(user);
+  });
+
+  it('should return null if user is not in storage', () => {
+    expect(service.getUserInStorage()).toBeUndefined();
+  });
+
+  it('recover password method in service return a user', () => {
+    service.recoverPassword(user.email).subscribe((resp: User) => {
+      expect(typeof user.email).toBe('string');
+    })
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/auth/recover');
+    expect(req.request.method).toBe('POST');
+    req.flush(user);
   });
 
 });
