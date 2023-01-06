@@ -19,7 +19,8 @@ export const user: User = {
   users: [],
   body: {},
   success: true,
-  status: null
+  status: null,
+  contactPhone: ''
 };
 
 
@@ -43,7 +44,8 @@ export const users: User[] = [
     users: [],
     body: {},
     success: true,
-    status: null
+    status: null,
+    contactPhone: ''
   },
   {
     documentId: '2',
@@ -64,7 +66,8 @@ export const users: User[] = [
     users: [],
     body: {},
     success: true,
-    status: null
+    status: null,
+    contactPhone: ''
   },
   {
     documentId: '3',
@@ -85,6 +88,7 @@ export const users: User[] = [
     users: [],
     body: {},
     success: true,
-    status: null
+    status: null,
+    contactPhone: ''
   }
 ];

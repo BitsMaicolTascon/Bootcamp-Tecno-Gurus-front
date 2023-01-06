@@ -93,7 +93,7 @@ describe('PerfilComponent', () => {
     tick(4000);
   }));
 
-  it('test method register in component when success is true ', <any>fakeAsync((): void => {
+  it('test method updatePerfil in component when success is true ', <any>fakeAsync((): void => {
     const userActive = {
       success: true
     } as User;
@@ -104,7 +104,7 @@ describe('PerfilComponent', () => {
     setTimeout(() => {
       component.updateDone = false;
       expect(component.updateDone).toBe(false);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/login');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/home');
     }, 4000);
     tick(4000);
   }));

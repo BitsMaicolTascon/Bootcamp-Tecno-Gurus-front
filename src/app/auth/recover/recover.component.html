@@ -1,1 +1,33 @@
-<p>recover works!</p>
+<div class="card-auth">
+
+  <div class="card container" style="width: 18rem;">
+    <div class="card-body ">
+      <div class="info-logo-auth">
+        <img src="assets/images/Frame.png" class="img-card-auth" alt="logo-login">
+        <h5 class="card-title">Money Service</h5>
+      </div>
+      <div class="card-form-auth">
+        <div *ngIf="errorAlert || recoverFailed || recoverDone" >
+          <p class="alert alert-danger" role="alert" *ngIf="errorAlert">Error inesperado por favor intente mas tarde!</p>
+          <p class="alert alert-danger" role="alert" *ngIf="recoverFailed">No se pudo enviar el correo de recuperación</p>
+          <p class="alert alert-success" role="alert" *ngIf="recoverDone">Se ha enviado una contraseña temporal a su email</p>
+        </div>
+        <form id="recoverForm" class="row" [formGroup]="form" (ngSubmit)="recoverPassword()">
+          <div class="mb-3 col-12">
+            <label for="exampleFormControlInput1" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email-login" formControlName="email" placeholder="hola@ejemplo.com"
+            [ngClass]="{ 'is-invalid' : form.get('email')?.errors && form.get('email')?.dirty}"
+            (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+            <div id="email-feedback" class="invalid-feedback">
+              El campo es requerido.
+            </div>
+          </div>
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-secondary .btn-lg" [disabled]="(form.invalid)"
+            [ngClass]="{ 'btn-dark': !form.invalid}">Recuperar contraseña</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

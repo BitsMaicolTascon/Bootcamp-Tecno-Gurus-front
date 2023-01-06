@@ -101,4 +101,13 @@ describe('AuthenticateService', () => {
     expect(service.getUserInStorage()).toBeUndefined();
   });
 
+  it('recover password method in service return a user', () => {
+    service.recoverPassword(user.email).subscribe((resp: User) => {
+      expect(typeof user.email).toBe('string');
+    })
+    const req = httpMock.expectOne(environment.API_REST_URL + '/users/auth/recover');
+    expect(req.request.method).toBe('POST');
+    req.flush(user);
+  });
+
 });

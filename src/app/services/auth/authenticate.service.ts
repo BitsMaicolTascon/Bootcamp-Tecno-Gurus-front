@@ -23,6 +23,12 @@ export class AuthenticateService {
     }, { headers: this.headers });
   }
 
+  recoverPassword(email: string): Observable<User> {
+    return this.http.post<User>(`${environment.API_REST_URL}/users/auth/recover`, {
+      email,
+    }, { headers: this.headers });
+  }
+
   setUserInStorage(user: User): void {
     const userInfo = JSON.stringify(user);
     localStorage.setItem('currentUser', userInfo);
