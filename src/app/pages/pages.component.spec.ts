@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { doesNotReject } from 'assert';
 
 import { PagesComponent } from './pages.component';
 
@@ -21,5 +22,13 @@ describe('PagesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show the sidebar when showSidebar is called with true', () => {
+    expect(component.showSidebar(true)).toBe(true);
+  });
+
+  it('should hide the sidebar when showSidebar is called with false', () => {
+    expect(component.showSidebar(false)).toBe(false);
   });
 });

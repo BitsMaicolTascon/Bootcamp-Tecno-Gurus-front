@@ -1,1 +1,85 @@
-<p>perfil works!</p>
+<div>
+  <p><strong>Bienvenido, vamos a configurar tu perfil</strong></p>
+</div>
+
+<div class="card-auth">
+  <div class="card container" style="width: 40rem;">
+    <div class="card-body ">
+      <div class="img-card-perfil">
+        <img src="assets/images/maicol.jpg" class="rounded-circle img-perfil col-md-6" alt="img-perfil">
+      </div>
+      <div class="card-form-auth">
+        <div *ngIf="errorAlert || updateFailed || updateDone">
+          <p class="alert alert-danger" role="alert" *ngIf="errorAlert">Error inesperado por favor intente mas tarde!
+          </p>
+          <p class="alert alert-danger" role="alert" *ngIf="updateFailed">El usuario ya se encuentra registrado</p>
+          <p class="alert alert-success" role="alert" *ngIf="updateDone">Usuario registrado con exito</p>
+        </div>
+        <form id="perfilForm" class="row" [formGroup]="form" (ngSubmit)="updatePerfil()">
+          <div class="row separate">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Nombres</label>
+              <input type="text" class="form-control" id="name" formControlName="name" [value]="form.value.name" placeholder="Nombres"
+                [ngClass]="{ 'is-invalid' : form.get('name')?.errors && form.get('name')?.dirty}"
+                (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+              <div id="name-feedback" class="invalid-feedback">
+                El campo es requerido.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" [value]="form.value.lastName" placeholder="Apellidos"
+                [ngClass]="{ 'is-invalid' : form.get('lastName')?.errors && form.get('lastName')?.dirty}"
+                (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+              <div id="lastName-feedback" class="invalid-feedback">
+                El campo es requerido.
+              </div>
+            </div>
+          </div>
+
+          <div class="row separate">
+            <div class="col-md-6">
+              <label for="cellPhone" class="form-label">Número de contacto</label>
+              <input type="text" class="form-control" id="cellPhone" formControlName="cellPhone" placeholder="Celular" [value]="form.value.cellPhone" maxlength="10"
+                [ngClass]="{ 'is-invalid' : form.get('cellPhone')?.errors && form.get('cellPhone')?.dirty}"
+                (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+              <div id="cellPhone-feedback" class="invalid-feedback">
+                El campo es requerido solo números.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="phoneNumber" class="form-label">Número de celular</label>
+              <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber"
+                placeholder="Número de contacto" maxlength="10" [value]="form.value.phoneNumber"
+                [ngClass]="{ 'is-invalid' : form.get('phoneNumber')?.errors && form.get('phoneNumber')?.dirty}"
+                (input)="form.patchValue({email: $any($event.target).value.toLowerCase()})">
+              <div id="phoneNumber-feedback" class="invalid-feedback">
+                El campo es requerido solo números.
+              </div>
+            </div>
+            <div class="row separate">
+              <div class="form-check col-md-12">
+                <input class="form-check-input" type="radio" formControlName="employee" name="employee" id="employee" >
+                <label class="form-check-label" for="employee">
+                  Estoy trabajando actualmente
+                </label>
+              </div>
+            </div>
+
+            <div class="row separate">
+              <div class="col-md-6"></div>
+              <div class="col-md-6">
+                <div class="d-grid  ">
+                  <button type="submit" class="btn btn-secondary center-button "  [disabled]="(form.invalid)"
+                  [ngClass]="{ 'btn-dark': !form.invalid}">Guardar perfil</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

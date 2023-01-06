@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesComponent implements OnInit {
 
+  show: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  showSidebar( value: boolean ): boolean {
+    return this.show = value;
   }
 
 }
