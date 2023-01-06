@@ -4,6 +4,7 @@ export interface User {
     lastName: string;
     phoneNumber: string;
     cellPhone: string;
+    contactPhone: string;
     email: string;
     password: string;
     active: boolean;
@@ -20,22 +21,3 @@ export interface User {
     success: boolean;
 }
 
-interface RegisterResponse {
-  body: {
-    message: string;
-  },
-  status: {
-    error: string;
-  },
-  success: boolean;
-}
-
-
-
-/* {
-  "body": {},
-  "status": {
-      "error": "User already exists "
-  },
-  "success": false
-} */

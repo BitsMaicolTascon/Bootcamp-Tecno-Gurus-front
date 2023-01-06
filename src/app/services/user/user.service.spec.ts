@@ -41,7 +41,7 @@ describe('UserService', () => {
       expect(resp).toEqual(user);
     })
     const req = httpMock.expectOne(environment.API_REST_URL + '/users/identifications/');
-    expect(req.request.method).toBe('PUT');
+    expect(req.request.method).toBe('POST');
     req.flush(user);
   });
 

@@ -15,11 +15,13 @@ export class UserService {
   updatePerfil(user: User): Observable<User> {
     console.log(user);
 
-    return this.http.put<User>(`${environment.API_REST_URL}/users/identifications/`, {
+    return this.http.post<User>(`${environment.API_REST_URL}/users/identifications/`, {
       name: user.name,
       lastName: user.lastName,
-      contactNumber: user.password,
-      role: user.role
-    });
+      contactPhone: user.phoneNumber,
+      perfilImage: '',
+      userId: user.documentId,
+      employee: user.employee || false
+    }, { headers: { 'Content-Type': 'application/json'}});
   }
 }

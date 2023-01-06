@@ -104,7 +104,7 @@ describe('PerfilComponent', () => {
     setTimeout(() => {
       component.updateDone = false;
       expect(component.updateDone).toBe(false);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/auth/login');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/pages/home');
     }, 4000);
     tick(4000);
   }));
